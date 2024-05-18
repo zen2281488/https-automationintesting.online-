@@ -43,12 +43,13 @@ password=password
 |-----------------------------------|-------------------|----|-------------|
 | Thanks for getting in touch [Имя] | We'll get back to you about| [subject] | as soon as possible. |
         •По адресу http://localhost/#/admin/messages в блоке messages появилось сообщение с соответсвующим Name и Subject,
-        а при клике на него открывается popup с данными формата
-        From: [name]
-        Phone: [phone]
-        Email: [email]
-        [subject]
-        [message]
+        а при клике на него открывается popup с данными:
+
+| Блок "From:"(.col-10 p) | Блок "Phone:"(.ReactModalPortal .col-2) | Блок "Email:"(.ReactModalPortal div:nth-child(2) div) | Блок без описания (.ReactModalPortal :nth-child(3)) | Блок без описания (".ReactModalPortal :nth-child(4)) |
+|-----------------------|-----------------------------------------|-------------------------------------------------------|-----------------------------------------------------|------------------------------------------------------|
+| From: [name]          | Phone: [phone]                          | Email: [email]                                        | [subject]                                           | [message]                                            |
+
+
     Постусловие:
         •  Удалить сообщение (желательно с помощью эндпоинта https://automationintesting.online/message/) 
 
