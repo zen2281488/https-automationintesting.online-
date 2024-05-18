@@ -31,14 +31,26 @@ password=password
 
     Шаги:
         •1	 Открыть главную страницу (https://automationintesting.online/)
-        •2	 Заполнить поля #name, #email, #phone, #subject, #description тестовыми данными:
+        •2	 Заполнить поля Name(#name), Email(#email), Phone(#phone), Subject(#subject), Message(#description) тестовыми данными:
 | #name    | #email            | #phone          | #subject    | #description    |
 |----------|-------------------|-----------------|-------------|-----------------|
-| TestName | test@testmail.com | 👉 +79000000000 | TestSubject | TestDescription |
+| TestName | test@testmail.com |  +79000000000 | TestSubject | TestDescription |
+        •3	 Нажать на кнопку Submit (#submitContact)
 
     Ожидаемый результат:
-
+        •В блоке .col-sm-5 div появился заголовок и три блока с текстом:
+| h2                                | p                 | p  | p           |
+|-----------------------------------|-------------------|----|-------------|
+| Thanks for getting in touch [Имя] | We'll get back to you about| [subject] | as soon as possible. |
+        •По адресу http://localhost/#/admin/messages в блоке messages появилось сообщение с соответсвующим Name и Subject,
+        а при клике на него открывается popup с данными формата
+        From: [name]
+        Phone: [phone]
+        Email: [email]
+        [subject]
+        [message]
     Постусловие:
+        •  Удалить сообщение (желательно с помощью эндпоинта https://automationintesting.online/message/) 
 
 
                 
