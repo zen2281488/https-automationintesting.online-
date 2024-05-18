@@ -1,11 +1,15 @@
-# automationintesting.online Booking room case
+# automationintesting.online Booking room case https://automationintesting.online/
+Логин и пароль хранятся в "confPrivate.properties" в формате:
+login=login
+password=password
+
 
 1.ID: UI-booking
 
     Заголовок: Бронь комнаты
 
     Шаги:
-        •1	 Открыть страницу https://automationintesting.online/
+        •1	 Открыть страницу localhost
         •2	 Нажать на кнопку “Book this room”
         •3	 В открывшемся окне мышью протянуть от //button[contains(text(), '12')] (12 мая) до //button[contains(text(), '14')] (14 мая)
         •4   В поле Firstname .room-firstname внести имя "testfirstname"

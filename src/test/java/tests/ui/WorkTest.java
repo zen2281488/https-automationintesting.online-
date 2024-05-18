@@ -1,0 +1,61 @@
+package tests.ui;
+
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
+import io.github.artsok.RepeatedIfExceptionsTest;
+import io.qameta.allure.Step;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import pageObjects.IndexPage;
+
+import static utils.ApiUtils.*;
+import static utils.properties.ConfProperties.getCommonProperty;
+
+@Epic("Тесты работоспособности брони.")
+public class WorkTest extends BaseTest {
+    private IndexPage indexPage;
+
+    @BeforeEach
+    @Step("Инициализация страниц")
+    public void before() {
+        indexPage = new IndexPage(driver);
+    }
+
+    @Feature("Бронь комнаты")
+    @Description("Тест бронирует комнату и проверяет текст в всплывающем пупапе на соответствие ожидаемому")
+    @Severity(value = SeverityLevel.NORMAL)
+    @RepeatedIfExceptionsTest(repeats = 3)
+    @DisplayName("Проверка возможности успешно забронировать комнату")
+    public void swiperBannerTest() {
+        System.setProperty("selenide.holdBrowserOpen", "true");
+        Selenide.open(getCommonProperty("url"));
+        indexPage.clickBookRoomButton()
+                .draganddropcalandar()
+                .fillFirstnameInput()
+                .fillLastnameInput()
+                .fillEmailInput()
+                .fillPhoneInput()
+                .clickBookButton()
+                .popup.shouldBe(Condition.visible);
+
+        Assertions.assertEquals("Booking Successful!", indexPage.getSuccessMessage());
+        Assertions.assertEquals("Congratulations! Your booking has been confirmed for:", indexPage.getInfoMessage());
+        Assertions.assertEquals(getBookingDates(token), indexPage.getDateMessage());
+
+    }
+
+    @AfterEach
+    @Step("Очистка")
+    public void after() {
+        deleteAllBooking(getBookingid(token), token);
+    }
+
+}
