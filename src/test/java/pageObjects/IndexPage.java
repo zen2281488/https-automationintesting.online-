@@ -28,7 +28,11 @@ public class IndexPage extends BasePage {
     public SelenideElement successMessage = $(".col-sm-6.text-center h3");
     public SelenideElement infoMessage = $(".col-sm-6.text-center p:nth-child(3)");
     public SelenideElement dateMessage = $(".col-sm-6.text-center p:nth-child(4)");
-
+    public SelenideElement formNameInput = $(".col-sm-6.text-center p:nth-child(4)");
+    public SelenideElement formEmailInput = $(".col-sm-6.text-center p:nth-child(4)");
+    public SelenideElement formPhoneInput = $(".col-sm-6.text-center p:nth-child(4)");
+    public SelenideElement formSubjectInput = $(".col-sm-6.text-center p:nth-child(4)");
+    public SelenideElement formMessageInput = $(".col-sm-6.text-center p:nth-child(4)");
     public IndexPage(Selenide browser) {
         super(browser);
     }

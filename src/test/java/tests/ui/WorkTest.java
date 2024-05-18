@@ -3,13 +3,7 @@ package tests.ui;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.github.artsok.RepeatedIfExceptionsTest;
-import io.qameta.allure.Step;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Description;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,11 +24,12 @@ public class WorkTest extends BaseTest {
     }
 
     @Feature("Бронь комнаты")
-    @Description("Тест бронирует комнату и проверяет текст в всплывающем пупапе на соответствие ожидаемому")
-    @Severity(value = SeverityLevel.NORMAL)
+    @Description("Тест бронирует комнату на определенную дату и проверяет текст в всплывающем пупапе на соответствие ожидаемому")
+    @Severity(value = SeverityLevel.CRITICAL)
     @RepeatedIfExceptionsTest(repeats = 3)
     @DisplayName("Проверка возможности успешно забронировать комнату")
-    public void swiperBannerTest() {
+    @AllureId("UI-booking")
+    public void bookingroom() {
         System.setProperty("selenide.holdBrowserOpen", "true");
         Selenide.open(getCommonProperty("url"));
         indexPage.clickBookRoomButton()
@@ -51,7 +46,16 @@ public class WorkTest extends BaseTest {
         Assertions.assertEquals(getBookingDates(token), indexPage.getDateMessage());
 
     }
+    @Feature("Форма обратной связи")
+    @Description("Тест отправляет сообщение с помощью формы на сайте и проверяет пришло ли сообщение администратору")
+    @Severity(value = SeverityLevel.NORMAL)
+    @RepeatedIfExceptionsTest(repeats = 3)
+    @DisplayName("Отправка формы")
+    @AllureId("UI-form")
+    public void senform() {
 
+
+    }
     @AfterEach
     @Step("Очистка")
     public void after() {
