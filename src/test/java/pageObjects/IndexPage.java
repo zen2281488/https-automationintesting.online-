@@ -79,7 +79,39 @@ public class IndexPage extends BasePage {
         actions.clickAndHold(firstDate).moveByOffset(10, 0).moveToElement(secondDate).release().perform();
         return this;
     }
+    @Step("Заполнение поля 'Name' в форме данными: '{ConfProperties.getCommonProperty(\"testFirstName\")}'")
+    public IndexPage fillFormName() {
+        $(formNameInput).sendKeys(getCommonProperty("testFirstName"));
+        return this;
+    }
 
+    @Step("Заполнение поля 'Email' в форме данными: '{ConfProperties.getCommonProperty(\"testEmail\")}'")
+    public IndexPage fillFormEmail() {
+        $(formEmailInput).sendKeys(getCommonProperty("testEmail"));
+        return this;
+    }
+
+    @Step("Заполнение поля 'Phone' в форме данными: '{ConfProperties.getCommonProperty(\"testPhone\")}'")
+    public IndexPage fillFormPhone() {
+        $(formPhoneInput).sendKeys(getCommonProperty("testEmail"));
+        return this;
+    }
+    @Step("Заполнение поля 'Subject' в форме данными: '{ConfProperties.getCommonProperty(\"testSubject\")}'")
+    public IndexPage fillFormSubject() {
+        $(formSubjectInput).sendKeys(getCommonProperty("testSubject"));
+        return this;
+    }
+
+    @Step("Заполнение поля 'Subject' в форме данными: '{ConfProperties.getCommonProperty(\"testMessage\")}'")
+    public IndexPage fillFromMessage() {
+        $(formMessageInput).sendKeys(getCommonProperty("testMessage"));
+        return this;
+    }
+    @Step("Клик по кнопке 'Submit'")
+    public IndexPage clickSubmitFormButton() {
+        submitButton.click();
+        return this;
+    }
     public String getSuccessMessage() {
         return successMessage.getText();
     }
