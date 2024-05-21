@@ -8,7 +8,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import pageObjects.AdminPanelPage;
 import pageObjects.IndexPage;
+import utils.SelenideUtils;
 
 import static utils.ApiUtils.*;
 import static utils.properties.ConfProperties.getCommonProperty;
@@ -16,11 +18,13 @@ import static utils.properties.ConfProperties.getCommonProperty;
 @Epic("Тесты работоспособности брони.")
 public class WorkTest extends BaseTest {
     private IndexPage indexPage;
-
+    private AdminPanelPage adminPanelPage;
     @BeforeEach
     @Step("Инициализация страниц")
     public void before() {
         indexPage = new IndexPage(driver);
+        adminPanelPage = new AdminPanelPage(driver);
+
     }
 
     @Feature("Бронь комнаты")
@@ -60,8 +64,13 @@ public class WorkTest extends BaseTest {
         Assertions.assertEquals("We'll get back to you about", indexPage.getFormFirstRowMessage());
         Assertions.assertEquals(getCommonProperty("testSubject"), indexPage.getFormSecondRowMessage());
         Assertions.assertEquals("as soon as possible.", indexPage.getFormThirdRowMessage());
-
-
+        selenideUtils.auth();
+        adminPanelPage.clickMessagesListButton();
+        Assertions.assertEquals(getCommonProperty("testFullName"), selenideUtils.getNameMessagePreview(token));
+        Assertions.assertEquals(getCommonProperty("testSubject"), selenideUtils.getSubjectMessagePreview(token));
+        selenideUtils.clickTestMessage(token);
+        Assertions.assertEquals(getCommonProperty("testFullName"), adminPanelPage.getFromNameMessageDetail(token));
+        Assertions.assertEquals(getCommonProperty("testSubject"),adminPanelPage.getSubjectMessageDetail(token) );
     }
     @AfterEach
     @Step("Очистка")

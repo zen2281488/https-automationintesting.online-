@@ -6,6 +6,8 @@ import io.restassured.specification.RequestSpecification;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.IntStream;
 
 import static utils.properties.ConfProperties.getCommonProperty;
 
@@ -50,10 +52,21 @@ public class ApiUtils {
         return result.toString().replaceAll("\\s+$", "");
     }
 
-    public static List<Object> getMessageList(String token) {
-        Response response = getRequestSpecification(token).get(getCommonProperty("MESSAGE_ENDPOINT_API")).then().log().all().extract().response();
-        return response.jsonPath().getList("messages");
+    public static int getIndexByName(String token, String knownName) {
+        Response response = getRequestSpecification(token)
+                .get(getCommonProperty("MESSAGE_ENDPOINT_API"))
+                .then()
+                .log().all()
+                .extract()
+                .response();
+
+        List<Map<String, Object>> messages = response.jsonPath().getList("messages");
+
+        return IntStream.range(0, messages.size())
+                .filter(i -> knownName.equals(messages.get(i).get("name")))
+                .findFirst()
+                .orElse(-1); // возвращаем -1, если индекс не найден
     }
-    
+
 
 }
