@@ -35,8 +35,6 @@ public class ApiUtils {
     public static String getBookingDates(String token) {
 
         Response response = getRequestSpecification(token).get(getCommonProperty("BASE_API_URL") + "/booking").then().log().all().extract().response();
-
-
         List<Map<String, Object>> data = response.jsonPath().getList("bookings");
 
         StringBuilder result = new StringBuilder();
@@ -51,5 +49,11 @@ public class ApiUtils {
         }
         return result.toString().replaceAll("\\s+$", "");
     }
+
+    public static List<Object> getMessageList(String token) {
+        Response response = getRequestSpecification(token).get(getCommonProperty("MESSAGE_ENDPOINT_API")).then().log().all().extract().response();
+        return response.jsonPath().getList("messages");
+    }
+    
 
 }

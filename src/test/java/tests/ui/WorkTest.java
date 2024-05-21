@@ -52,7 +52,14 @@ public class WorkTest extends BaseTest {
     @RepeatedIfExceptionsTest(repeats = 3)
     @DisplayName("Отправка формы")
     @AllureId("UI-form")
-    public void senform() {
+    public void sendform() {
+        System.setProperty("selenide.holdBrowserOpen", "true");
+        Selenide.open(getCommonProperty("url"));
+        indexPage.fillFormName().fillFormEmail().fillFormPhone().fillFormSubject().fillFromMessage().clickSubmitFormButton();
+        Assertions.assertEquals("Thanks for getting in touch "+getCommonProperty("testFullName")+"!", indexPage.getFormHeadMessage());
+        Assertions.assertEquals("We'll get back to you about", indexPage.getFormFirstRowMessage());
+        Assertions.assertEquals(getCommonProperty("testSubject"), indexPage.getFormSecondRowMessage());
+        Assertions.assertEquals("as soon as possible.", indexPage.getFormThirdRowMessage());
 
 
     }

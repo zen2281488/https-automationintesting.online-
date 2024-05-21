@@ -18,7 +18,7 @@ public class IndexPage extends BasePage {
     private SelenideElement lastnameInput = $(".room-lastname");
     private SelenideElement emailInput = $(".room-email");
     private SelenideElement phoneInput = $(".room-phone");
-    private SelenideElement submitButton = $(".btn-outline-primary.book-room");
+    private SelenideElement submitBookingButton = $(".btn-outline-primary.book-room");
     private SelenideElement cancelButton = $(".btn-outline-danger.book-room");
 
     private SelenideElement firstDate = $(By.xpath("//button[contains(text(), '12')]"));
@@ -28,11 +28,17 @@ public class IndexPage extends BasePage {
     public SelenideElement successMessage = $(".col-sm-6.text-center h3");
     public SelenideElement infoMessage = $(".col-sm-6.text-center p:nth-child(3)");
     public SelenideElement dateMessage = $(".col-sm-6.text-center p:nth-child(4)");
-    public SelenideElement formNameInput = $(".col-sm-6.text-center p:nth-child(4)");
-    public SelenideElement formEmailInput = $(".col-sm-6.text-center p:nth-child(4)");
-    public SelenideElement formPhoneInput = $(".col-sm-6.text-center p:nth-child(4)");
-    public SelenideElement formSubjectInput = $(".col-sm-6.text-center p:nth-child(4)");
-    public SelenideElement formMessageInput = $(".col-sm-6.text-center p:nth-child(4)");
+    public SelenideElement formNameInput = $("#name");
+    public SelenideElement formEmailInput = $("#email");
+    public SelenideElement formPhoneInput = $("#phone");
+    public SelenideElement formSubjectInput = $("#subject");
+    public SelenideElement formMessageInput = $("#description");
+    private SelenideElement submitFormButton = $("#submitContact");
+    public SelenideElement formMessageHead = $(".contact h2");
+    public SelenideElement formMessageFirstRow = $(".contact :nth-child(2) :nth-child(2)");
+    public SelenideElement formMessageSecondRow = $(".contact :nth-child(2) :nth-child(3)");
+    public SelenideElement formMessageThirdRow = $(".contact :nth-child(2) :nth-child(4)");
+
     public IndexPage(Selenide browser) {
         super(browser);
     }
@@ -45,7 +51,7 @@ public class IndexPage extends BasePage {
 
     @Step("Клик по кнопке 'Book'")
     public IndexPage clickBookButton() {
-        submitButton.click();
+        submitBookingButton.click();
         return this;
     }
 
@@ -79,9 +85,10 @@ public class IndexPage extends BasePage {
         actions.clickAndHold(firstDate).moveByOffset(10, 0).moveToElement(secondDate).release().perform();
         return this;
     }
+
     @Step("Заполнение поля 'Name' в форме данными: '{ConfProperties.getCommonProperty(\"testFirstName\")}'")
     public IndexPage fillFormName() {
-        $(formNameInput).sendKeys(getCommonProperty("testFirstName"));
+        $(formNameInput).sendKeys(getCommonProperty("testFullName"));
         return this;
     }
 
@@ -93,25 +100,28 @@ public class IndexPage extends BasePage {
 
     @Step("Заполнение поля 'Phone' в форме данными: '{ConfProperties.getCommonProperty(\"testPhone\")}'")
     public IndexPage fillFormPhone() {
-        $(formPhoneInput).sendKeys(getCommonProperty("testEmail"));
+        $(formPhoneInput).sendKeys(getCommonProperty("testPhone"));
         return this;
     }
+
     @Step("Заполнение поля 'Subject' в форме данными: '{ConfProperties.getCommonProperty(\"testSubject\")}'")
     public IndexPage fillFormSubject() {
         $(formSubjectInput).sendKeys(getCommonProperty("testSubject"));
         return this;
     }
 
-    @Step("Заполнение поля 'Subject' в форме данными: '{ConfProperties.getCommonProperty(\"testMessage\")}'")
+    @Step("Заполнение поля 'Message' в форме данными: '{ConfProperties.getCommonProperty(\"testMessage\")}'")
     public IndexPage fillFromMessage() {
         $(formMessageInput).sendKeys(getCommonProperty("testMessage"));
         return this;
     }
+
     @Step("Клик по кнопке 'Submit'")
     public IndexPage clickSubmitFormButton() {
-        submitButton.click();
+        submitFormButton.click();
         return this;
     }
+
     public String getSuccessMessage() {
         return successMessage.getText();
     }
@@ -122,5 +132,20 @@ public class IndexPage extends BasePage {
 
     public String getDateMessage() {
         return dateMessage.getText();
+    }
+    public String getFormHeadMessage() {
+        return formMessageHead.getText();
+    }
+
+    public String getFormFirstRowMessage() {
+        return formMessageFirstRow.getText();
+    }
+
+    public String getFormSecondRowMessage() {
+        return formMessageSecondRow.getText();
+    }
+
+    public String getFormThirdRowMessage() {
+        return formMessageThirdRow.getText();
     }
 }
