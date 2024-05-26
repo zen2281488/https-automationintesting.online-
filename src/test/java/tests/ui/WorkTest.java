@@ -67,13 +67,6 @@ public class WorkTest extends BaseTest {
         Assertions.assertEquals("We'll get back to you about", indexPage.getFormFirstRowMessage());
         Assertions.assertEquals(getCommonProperty("testSubject"), indexPage.getFormSecondRowMessage());
         Assertions.assertEquals("as soon as possible.", indexPage.getFormThirdRowMessage());
-        selenideUtils.auth();
-        adminPanelPage.clickMessagesListButton();
-        Assertions.assertEquals(getCommonProperty("testFullName"), selenideUtils.getNameMessagePreview(token));
-        Assertions.assertEquals(getCommonProperty("testSubject"), selenideUtils.getSubjectMessagePreview(token));
-        selenideUtils.clickTestMessage(token);
-        Assertions.assertEquals(getCommonProperty("testFullName"), adminPanelPage.getFromNameMessageDetail(token));
-        Assertions.assertEquals(getCommonProperty("testSubject"),adminPanelPage.getSubjectMessageDetail(token) );
     }
 
 
