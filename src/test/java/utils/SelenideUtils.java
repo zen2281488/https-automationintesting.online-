@@ -5,6 +5,15 @@ import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
 import pageObjects.AdminPanelPage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.codeborne.selenide.Selenide.$;
 import static utils.ApiUtils.getIndexByName;
 import static utils.properties.ConfProperties.getCommonProperty;
@@ -41,4 +50,6 @@ public class SelenideUtils {
     public String getSubjectMessagePreview(String token) {
         return $("#message"+getIndexByName(token,getCommonProperty("testFullName"))+".col-sm-9  p").getText();
     }
+
+
 }

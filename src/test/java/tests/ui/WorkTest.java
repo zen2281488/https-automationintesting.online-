@@ -12,6 +12,9 @@ import pageObjects.AdminPanelPage;
 import pageObjects.IndexPage;
 import utils.SelenideUtils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import static utils.ApiUtils.*;
 import static utils.properties.ConfProperties.getCommonProperty;
 
@@ -72,6 +75,8 @@ public class WorkTest extends BaseTest {
         Assertions.assertEquals(getCommonProperty("testFullName"), adminPanelPage.getFromNameMessageDetail(token));
         Assertions.assertEquals(getCommonProperty("testSubject"),adminPanelPage.getSubjectMessageDetail(token) );
     }
+
+
     @AfterEach
     @Step("Очистка")
     public void after() {
