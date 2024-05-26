@@ -22,7 +22,11 @@
             <artifactId>selenide</artifactId>
             <version>5.23.3</version>
         </dependency>
-
+        <dependency>
+            <groupId>net.lightbody.bmp</groupId>
+            <artifactId>browsermob-core</artifactId>
+            <version>2.1.5</version>
+        </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-engine</artifactId>
