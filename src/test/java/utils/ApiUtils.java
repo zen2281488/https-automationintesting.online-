@@ -16,16 +16,13 @@ public class ApiUtils {
 
         return response.jsonPath().getList("bookings.bookingid");
     }
+
     public static List<Object> getSpecificBookingid(String token) {
         Response response = getRequestSpecification(token).get(getCommonProperty("BASE_API_URL") + "/booking").then().log().all().extract().response();
-       return response.jsonPath().getList("bookings.findAll { it.firstname == '"+ getCommonProperty("testFirstName") +"' }.bookingid");
+        return response.jsonPath().getList("bookings.findAll { it.firstname == '" + getCommonProperty("testFirstName") + "' }.bookingid");
 
 
     }
-
-
-
-
 
 
     public static RequestSpecification getRequestSpecification(String token) {
@@ -63,19 +60,11 @@ public class ApiUtils {
     }
 
     public static int getIndexByName(String token, String knownName) {
-        Response response = getRequestSpecification(token)
-                .get(getCommonProperty("MESSAGE_ENDPOINT_API"))
-                .then()
-                .log().all()
-                .extract()
-                .response();
+        Response response = getRequestSpecification(token).get(getCommonProperty("MESSAGE_ENDPOINT_API")).then().log().all().extract().response();
 
         List<Map<String, Object>> messages = response.jsonPath().getList("messages");
 
-        return IntStream.range(0, messages.size())
-                .filter(i -> knownName.equals(messages.get(i).get("name")))
-                .findFirst()
-                .orElse(-1); // возвращаем -1, если индекс не найден
+        return IntStream.range(0, messages.size()).filter(i -> knownName.equals(messages.get(i).get("name"))).findFirst().orElse(-1); // возвращаем -1, если индекс не найден
     }
 
 

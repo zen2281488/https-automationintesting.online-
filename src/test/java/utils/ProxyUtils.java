@@ -10,11 +10,12 @@ public class ProxyUtils {
 
     private BrowserMobProxy proxy;
 
-    public BrowserMobProxy startProxy(){
+    public BrowserMobProxy startProxy() {
         proxy = new BrowserMobProxyServer();
         proxy.start(0);
         return proxy;
     }
+
     public Proxy getSeleniumProxy() {
         return ClientUtil.createSeleniumProxy(proxy);
     }

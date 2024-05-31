@@ -5,16 +5,14 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.extension.ExtendWith;
 import utils.SelenideUtils;
-
 
 
 public class BaseTest {
     protected static Selenide driver;
     protected static String token;
     protected static SelenideUtils selenideUtils;
+
     @AfterEach
     @Step("Очиска данных")
     public void baseAfter() {

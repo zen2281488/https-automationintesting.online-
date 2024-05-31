@@ -4,12 +4,17 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import io.github.artsok.RepeatedIfExceptionsTest;
-import io.qameta.allure.*;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
+import io.qameta.allure.Severity;
+import io.qameta.allure.AllureId;
+import io.qameta.allure.SeverityLevel;
 import net.lightbody.bmp.BrowserMobProxy;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import pageObjects.AdminPanelPage;
 import pageObjects.IndexPage;
 import utils.ProxyUtils;
 
@@ -44,14 +49,7 @@ public class WorkTest extends BaseTest {
         Selenide.open(getCommonProperty("url"));
         proxy.newHar("booking/");
 
-        indexPage.clickBookRoomButton()
-                .draganddropcalandar()
-                .fillFirstnameInput()
-                .fillLastnameInput()
-                .fillEmailInput()
-                .fillPhoneInput()
-                .clickBookButton()
-                .popup.shouldBe(Condition.visible);
+        indexPage.clickBookRoomButton().draganddropcalandar().fillFirstnameInput().fillLastnameInput().fillEmailInput().fillPhoneInput().clickBookButton().popup.shouldBe(Condition.visible);
 
         assertEquals("Booking Successful!", indexPage.getSuccessMessage());
         assertEquals("Congratulations! Your booking has been confirmed for:", indexPage.getInfoMessage());
@@ -70,12 +68,7 @@ public class WorkTest extends BaseTest {
         Selenide.open(getCommonProperty("url"));
         proxy.newHar("message/");
 
-        indexPage.fillFormName()
-                .fillFormEmail()
-                .fillFormPhone()
-                .fillFormSubject()
-                .fillFromMessage()
-                .clickSubmitFormButton();
+        indexPage.fillFormName().fillFormEmail().fillFormPhone().fillFormSubject().fillFromMessage().clickSubmitFormButton();
 
         assertEquals("Thanks for getting in touch " + getCommonProperty("testFullName") + "!", indexPage.getFormHeadMessage());
         assertEquals("We'll get back to you about", indexPage.getFormFirstRowMessage());

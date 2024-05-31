@@ -5,8 +5,6 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$;
-import static utils.ApiUtils.getIndexByName;
-import static utils.properties.ConfProperties.getCommonProperty;
 
 public class AdminPanelPage extends BasePage {
     private SelenideElement messagesListButton = $(".fa-inbox");

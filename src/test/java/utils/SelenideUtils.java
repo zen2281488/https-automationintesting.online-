@@ -36,17 +36,19 @@ public class SelenideUtils {
 
     @Step("Клик по тестовому сообщению")
     public SelenideUtils clickTestMessage(String token) {
-        $("#message"+getIndexByName(token,getCommonProperty("testFullName"))).click();
+        $("#message" + getIndexByName(token, getCommonProperty("testFullName"))).click();
         return this;
     }
+
     public String getNameMessagePreview(String token) {
-        return $("#message"+getIndexByName(token,getCommonProperty("testFullName"))+".col-sm-2  p").getText();
-    }
-    public String getSubjectMessagePreview(String token) {
-        return $("#message"+getIndexByName(token,getCommonProperty("testFullName"))+".col-sm-9  p").getText();
+        return $("#message" + getIndexByName(token, getCommonProperty("testFullName")) + ".col-sm-2  p").getText();
     }
 
-    public int getFormResponceCode(BrowserMobProxy proxy){
+    public String getSubjectMessagePreview(String token) {
+        return $("#message" + getIndexByName(token, getCommonProperty("testFullName")) + ".col-sm-9  p").getText();
+    }
+
+    public int getFormResponceCode(BrowserMobProxy proxy) {
         AtomicInteger code = new AtomicInteger();
         Selenide.sleep(5000);
         Har har = proxy.getHar();
@@ -59,7 +61,7 @@ public class SelenideUtils {
         return code.get();
     }
 
-    public int getBookingResponceCode(BrowserMobProxy proxy){
+    public int getBookingResponceCode(BrowserMobProxy proxy) {
         AtomicInteger code = new AtomicInteger();
         Selenide.sleep(5000);
         Har har = proxy.getHar();
