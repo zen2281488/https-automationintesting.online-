@@ -20,10 +20,7 @@ public class ApiUtils {
     public static List<Object> getSpecificBookingid(String token) {
         Response response = getRequestSpecification(token).get(getCommonProperty("BASE_API_URL") + "/booking").then().log().all().extract().response();
         return response.jsonPath().getList("bookings.findAll { it.firstname == '" + getCommonProperty("testFirstName") + "' }.bookingid");
-
-
     }
-
 
     public static RequestSpecification getRequestSpecification(String token) {
         return RestAssured.given().cookie("token", token);
@@ -60,7 +57,7 @@ public class ApiUtils {
     }
 
     public static int getIndexByName(String token, String knownName) {
-        Response response = getRequestSpecification(token).get(getCommonProperty("MESSAGE_ENDPOINT_API")).then().log().all().extract().response();
+        Response response = getRequestSpecification(token).get(getCommonProperty("BASE_API_URL") + "/message/").then().log().all().extract().response();
 
         List<Map<String, Object>> messages = response.jsonPath().getList("messages");
 
