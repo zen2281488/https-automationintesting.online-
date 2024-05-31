@@ -9,7 +9,7 @@ password=password
     Заголовок: Бронь комнаты
 
     Шаги:
-        •1	 Открыть страницу (https://automationintesting.online/)
+        •1	 Открыть страницу (BASE_URL)
         •2	 Нажать на кнопку “Book this room”
         •3	 В открывшемся окне мышью протянуть от //button[contains(text(), '12')] (12 мая) до //button[contains(text(), '14')] (14 мая)
         •4   В поле Firstname .room-firstname внести имя "testfirstname"
@@ -21,16 +21,17 @@ password=password
     Ожидаемый результат:
         •8	Появилось модальное окно .ReactModalPortal с заголовком "Booking Successful!" и содержимым:
             "Congratulations! Your booking has been confirmed for: 2024-05-12 - 2024-05-15"
+        •   Был получен ответ на запрос с кодом 201
     Постусловие:
-        •  Посмотреть айди брони по https://automationintesting.online/booking/
-        •  Удалить бронь по айди через эндпоинт https://automationintesting.online/booking/[id]
+        •  Посмотреть айди брони по BASE_URL/booking/
+        •  Удалить бронь по айди через эндпоинт BASE_URL/booking/[id]
 
-1.ID: UI-form
+2.ID: UI-form
 
     Заголовок: Отправка формы
 
     Шаги:
-        •1	 Открыть главную страницу (https://automationintesting.online/)
+        •1	 Открыть главную страницу (BASE_URL)
         •2	 Заполнить поля Name(#name), Email(#email), Phone(#phone), Subject(#subject), Message(#description) тестовыми данными:
 | #name    | #email            | #phone          | #subject    | #description    |
 |----------|-------------------|-----------------|-------------|-----------------|
@@ -42,12 +43,11 @@ password=password
 | h2                                | p                 | p  | p           |
 |-----------------------------------|-------------------|----|-------------|
 | Thanks for getting in touch [Имя] | We'll get back to you about| [subject] | as soon as possible. |
-        •По адресу http://localhost/#/admin/messages в блоке messages появилось сообщение с соответсвующим Name и Subject,
-        а при клике на него открывается popup с данными:
+         •Был получен ответ на запрос с кодом 201
 
 | Блок "From:"(.col-10 p) | Блок "Phone:"(.ReactModalPortal .col-2) | Блок "Email:"(.ReactModalPortal div:nth-child(2) div) | Блок без описания (.ReactModalPortal :nth-child(3)) | Блок без описания (".ReactModalPortal :nth-child(4)) |
 |-----------------------|-----------------------------------------|-------------------------------------------------------|-----------------------------------------------------|------------------------------------------------------|
 | From: [name]          | Phone: [phone]                          | Email: [email]                                        | [subject]                                           | [message]                                            |
 
     Постусловие:
-        •  Удалить сообщение (с помощью эндпоинта https://automationintesting.online/message/)
+        •  Удалить сообщение (с помощью эндпоинта BASE_URL/message/)

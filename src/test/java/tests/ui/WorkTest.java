@@ -3,13 +3,10 @@ package tests.ui;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import io.github.artsok.RepeatedIfExceptionsTest;
 import io.qameta.allure.*;
 import net.lightbody.bmp.BrowserMobProxy;
-import net.lightbody.bmp.core.har.Har;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import pageObjects.AdminPanelPage;
@@ -24,15 +21,14 @@ import static utils.properties.ConfProperties.getCommonProperty;
 @Epic("Тесты работоспособности брони.")
 public class WorkTest extends BaseTest {
     private IndexPage indexPage;
-    private AdminPanelPage adminPanelPage;
     private BrowserMobProxy proxy;
+    private ProxyUtils proxyUtils;
 
     @BeforeEach
     @Step("Инициализация страниц")
     public void before() {
         indexPage = new IndexPage(driver);
-        adminPanelPage = new AdminPanelPage(driver);
-        ProxyUtils proxyUtils = new ProxyUtils();
+        proxyUtils = new ProxyUtils();
         proxy = proxyUtils.startProxy();
         Configuration.browserCapabilities = proxyUtils.getChromeOptionsWithProxy();
 
@@ -45,7 +41,6 @@ public class WorkTest extends BaseTest {
     @DisplayName("Проверка возможности успешно забронировать комнату")
     @AllureId("UI-booking")
     public void bookingroom() {
-        System.setProperty("selenide.holdBrowserOpen", "true");
         Selenide.open(getCommonProperty("url"));
         proxy.newHar("booking/");
 
@@ -61,8 +56,10 @@ public class WorkTest extends BaseTest {
         assertEquals("Booking Successful!", indexPage.getSuccessMessage());
         assertEquals("Congratulations! Your booking has been confirmed for:", indexPage.getInfoMessage());
         assertEquals(201, selenideUtils.getBookingResponceCode(proxy));
-
+        deleteBooking(getSpecificBookingid(token), token);
     }
+
+
     @Feature("Форма обратной связи")
     @Description("Тест отправляет сообщение с помощью формы на сайте, проверяет выдачу уведомлений и статус код отправки формы")
     @Severity(value = SeverityLevel.NORMAL)
@@ -70,7 +67,6 @@ public class WorkTest extends BaseTest {
     @DisplayName("Тест работоспособности формы")
     @AllureId("UI-form")
     public void sendform() {
-        System.setProperty("selenide.holdBrowserOpen", "true");
         Selenide.open(getCommonProperty("url"));
         proxy.newHar("message/");
 
@@ -92,7 +88,7 @@ public class WorkTest extends BaseTest {
     @AfterEach
     @Step("Очистка")
     public void after() {
-        deleteAllBooking(getBookingid(token), token);
+        proxy.stop();
     }
 
 }

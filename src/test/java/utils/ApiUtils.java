@@ -6,23 +6,33 @@ import io.restassured.specification.RequestSpecification;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static utils.properties.ConfProperties.getCommonProperty;
 
 public class ApiUtils {
-    public static List<Object> getBookingid(String token) {
+    public static List<Object> getAllBookingid(String token) {
         Response response = getRequestSpecification(token).get(getCommonProperty("BASE_API_URL") + "/booking").then().log().all().extract().response();
 
         return response.jsonPath().getList("bookings.bookingid");
     }
+    public static List<Object> getSpecificBookingid(String token) {
+        Response response = getRequestSpecification(token).get(getCommonProperty("BASE_API_URL") + "/booking").then().log().all().extract().response();
+       return response.jsonPath().getList("bookings.findAll { it.firstname == '"+ getCommonProperty("testFirstName") +"' }.bookingid");
+
+
+    }
+
+
+
+
+
 
     public static RequestSpecification getRequestSpecification(String token) {
         return RestAssured.given().cookie("token", token);
     }
 
-    public static void deleteAllBooking(List<Object> bookingIds, String token) {
+    public static void deleteBooking(List<Object> bookingIds, String token) {
         for (Object bookingId : bookingIds) {
             getRequestSpecification(token).delete(getCommonProperty("BASE_API_URL") + "/booking/" + bookingId).then().extract().response();
             System.out.println("Deleting booking with ID: " + bookingId);
