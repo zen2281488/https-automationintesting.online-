@@ -15,6 +15,7 @@ import net.lightbody.bmp.BrowserMobProxy;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import pageObjects.IndexPage;
 import utils.ProxyUtils;
 
@@ -42,7 +43,7 @@ public class WorkTest extends BaseTest {
     @Feature("Бронь комнаты")
     @Description("Тест бронирует комнату на определенную дату и проверяет текст в всплывающем пупапе на соответствие ожидаемому")
     @Severity(value = SeverityLevel.CRITICAL)
-    @RepeatedIfExceptionsTest(repeats = 3)
+    @Test
     @DisplayName("Проверка возможности успешно забронировать комнату")
     @AllureId("UI-booking")
     public void bookingroom() {
@@ -61,7 +62,7 @@ public class WorkTest extends BaseTest {
     @Feature("Форма обратной связи")
     @Description("Тест отправляет сообщение с помощью формы на сайте, проверяет выдачу уведомлений и статус код отправки формы")
     @Severity(value = SeverityLevel.NORMAL)
-    @RepeatedIfExceptionsTest(repeats = 3)
+    @Test
     @DisplayName("Тест работоспособности формы")
     @AllureId("UI-form")
     public void sendform() {
